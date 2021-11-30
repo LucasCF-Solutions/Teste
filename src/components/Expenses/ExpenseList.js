@@ -6,7 +6,6 @@ import Card from "../UI/Card";
 import ExpensesFilter from './ExpensesFilter.js';
 
 function ExpenseList(props) {
-  let itemList = [];
   //listener/updater da caixa de seleção da data
   const [filteredYear, setFilteredYear] = useState('2021');
 
@@ -16,26 +15,13 @@ function ExpenseList(props) {
       console.log(filteredYear);
   }
 
-  props.expenses.forEach((item, index) => {
-    console.log(item);
-    if (item.date.toLocaleDateString("en-US", { year: "numeric" }) == filteredYear){
-    itemList.push(
-      <ExpenseItem
-        key={index}
-        date={item.date}
-        title={item.title}
-        value={item.value}
-      ></ExpenseItem>
-    );
-    }
-  });
-
 
   return (
       <Card className="expense-list">
         <ExpensesFilter filteredYear = {filteredYear} onChangeFilter = {filterChangeHandler}/>
-        {props.items.map((expenses)=> (
+        {props.expenses.map((expenses)=> (
            <ExpenseItem
+           key={expenses.id}
            date={expenses.date}
            title={expenses.title}
            value={expenses.value}
